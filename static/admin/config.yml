@@ -1,0 +1,72 @@
+backend:
+    name: git-gateway
+    branch: main # Branch to update (optional; defaults to master)
+   # repo: fontius/docusaurus-netlify
+media_folder: 'assets/uploads'
+publish_mode: editorial_workflow
+collections:      # collections define the structure for the different content types
+  - name: 'docs'  # Post type identifier, used in routes. Must be unique.
+    label: 'Docs' # What the admin UI calls the post type.
+    label_singular: 'Doc'
+    folder: 'docs'  # Where files of this type are stored, relative to the repo root
+    path: '{{menu}}/{{id}}'
+    create: true  # Set to true to allow users to create new files in this collection. 
+    slug: '{{id}}' # Filename template, e.g., YYYY-MM-DD-title.md
+    identifier_field: 'title'
+    extension: 'md'
+    format: 'frontmatter'
+    editor: 
+      preview: false
+    fields: # saved as front matter at the beginning of the document
+      # - name: 'menu'
+      #   label: 'Menu'
+      - { label: 'Slug', name: 'id', widget: 'string' }
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Hide Title', name: 'hide_title', widget: 'boolean', default: false }
+      - { label: 'Hide Table of Contents', name: 'hide_table_of_contents', widget: 'boolean', default: false }
+      - { label: 'Sidebar Label', name: 'sidebar_label', widget: 'string', required: false }
+      - { label: 'Keywords', name: 'keywords', widget: 'list', default: [], required: false }
+      - { label: 'Description', name: 'description', required: false }
+      - { label: 'Image', name: 'image', widget: 'image', allow_multiple: false, required: false }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
+  - name: 'blog'
+    label: 'Blog'
+    folder: 'blog'
+    create: true
+    slug: '{{date}}-{{id}}'
+    identifier_field: 'title'
+    extension: 'md'
+    format: 'frontmatter'
+    editor:
+      preview: false
+    fields:
+      - { label: 'Slug', name: 'id', widget: 'string' }
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Author', name: 'author', required: false }
+      - { label: 'Author Title', name: 'author_title', widget: 'string', required: false }
+      - { label: 'Author URL', name: 'author_url', widget: 'string', required: false }
+      - { label: 'Author Image', name: 'author_image_url', widget: 'image', allow_multiple: false, required: false }
+      - { label: 'Hide Table of Contents', name: 'hide_table_of_contents', widget: 'boolean', default: false }
+      - { label: 'Tags', name: 'tags', widget: 'list', default: [], required: false }
+      - { label: 'Draft', name: 'draft', widget: 'boolean', default: true }
+      - { label: 'Date', name: 'date', widget: 'datetime', format: 'YYYY-MM-DD', timeFormat: false }
+      - { label: 'Description', name: 'description', required: false }
+      - { label: 'Image', name: 'image', widget: 'image', allow_multiple: false, required: false }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
+  - name: 'pages'
+    label: 'Pages'
+    label_singular: 'Page'
+    folder: 'src/pages'
+    path: '{{id}}'
+    create: true
+    slug: '{{id}}'
+    identifier_field: 'title'
+    extension: 'js'
+    format: 'frontmatter'
+    editor:
+      preview: false
+    fields:
+      - { label: 'Slug', name: 'id', widget: 'string' }
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Description', name: 'description', required: false }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
